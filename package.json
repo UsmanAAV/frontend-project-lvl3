@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --max-warnings=0 && prettier . --write",
+    "lint": "eslint . --max-warnings=0",
+    "lint:precommit": "npm run lint && prettier . --write",
+    "lint:ci": "npm run lint && prettier . --check",
     "precommit": "lint-staged"
   },
   "repository": {
@@ -30,7 +32,7 @@
   },
   "lint-staged": {
     "*": [
-      "lint",
+      "lint:precommit",
       "git add"
     ]
   }
