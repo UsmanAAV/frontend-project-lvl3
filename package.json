@@ -1,0 +1,19 @@
+{
+  "name": "rss-reader",
+  "version": "0.0.1",
+  "description": "it is a 3rd project of the 'Frontend-developer' course on the Hexlet",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UsmanAAV/frontend-project-lvl3.git"
+  },
+  "author": "Azamat Abdullin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UsmanAAV/frontend-project-lvl3/issues"
+  },
+  "homepage": "https://github.com/UsmanAAV/frontend-project-lvl3#readme"
+}
