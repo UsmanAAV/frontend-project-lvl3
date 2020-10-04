@@ -4,7 +4,9 @@
   "description": "it is a 3rd project of the 'Frontend-developer' course on the Hexlet",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint .",
+    "prettier": "prettier ."
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/UsmanAAV/frontend-project-lvl3/issues"
   },
-  "homepage": "https://github.com/UsmanAAV/frontend-project-lvl3#readme"
+  "homepage": "https://github.com/UsmanAAV/frontend-project-lvl3#readme",
+  "devDependencies": {
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2"
+  }
 }
