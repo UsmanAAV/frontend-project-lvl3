@@ -5,10 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --max-warnings=0",
-    "lint:precommit": "npm run lint && prettier . --write",
-    "lint:ci": "npm run lint && prettier . --check",
-    "precommit": "lint-staged"
+    "lint:precommit": "eslint . --fix --max-warnings=0 && prettier . --write",
+    "lint:ci": "eslint . --max-warnings=0 && prettier . --check"
   },
   "repository": {
     "type": "git",
@@ -32,8 +30,13 @@
   },
   "lint-staged": {
     "*": [
-      "lint:precommit",
+      "npm run lint:precommit",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
