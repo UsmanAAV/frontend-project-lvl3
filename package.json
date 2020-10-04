@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint .",
-    "prettier": "prettier ."
+    "lint": "eslint . --max-warnings=0 && prettier . --write",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,11 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2"
+  },
+  "lint-staged": {
+    "*": [
+      "lint",
+      "git add"
+    ]
   }
 }
