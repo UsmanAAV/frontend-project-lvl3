@@ -4,6 +4,8 @@
   "description": "it is a 3rd project of the 'Frontend-developer' course on the Hexlet",
   "main": "src/index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.prod.js",
+    "start": "webpack-dev-server -d --config webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:precommit": "eslint . --fix --max-warnings=0 && prettier . --write",
     "lint:ci": "eslint . --max-warnings=0 && prettier . --check"
@@ -19,6 +21,13 @@
   },
   "homepage": "https://github.com/UsmanAAV/frontend-project-lvl3#readme",
   "devDependencies": {
+    "@babel/cli": "^7.12.7",
+    "@babel/core": "^7.12.7",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.12.0",
@@ -28,8 +37,13 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
   },
   "lint-staged": {
     "*": [
