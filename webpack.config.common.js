@@ -1,13 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const AutoprefixerPlugin = require("autoprefixer");
 
 const BUNDLE_NAME = "bundle.js";
 const PATHS = {
   app: [path.join(__dirname, "./src/index.js")],
   src: path.join(__dirname, "./src/"),
   dist: path.join(__dirname, "dist"),
-  template: path.resolve(__dirname, "template.html"),
+  template: path.resolve(__dirname, "public/index.html"),
 };
 
 module.exports = {
@@ -27,16 +28,30 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.(scss)$/,
         use: [
           {
-            loader: "style-loader", // creates style nodes from JS strings
+            // Adds CSS to the DOM by injecting a `<style>` tag
+            loader: "style-loader",
           },
           {
-            loader: "css-loader", // translates CSS into CommonJS
+            // Interprets `@import` and `url()` like `import/require()` and will resolve them
+            loader: "css-loader",
           },
           {
-            loader: "sass-loader", // compiles Sass to CSS
+            // Loader for webpack to process CSS with PostCSS
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins() {
+                  return [AutoprefixerPlugin];
+                },
+              },
+            },
+          },
+          {
+            // Loads a SASS/SCSS file and compiles it to CSS
+            loader: "sass-loader",
           },
         ],
       },
