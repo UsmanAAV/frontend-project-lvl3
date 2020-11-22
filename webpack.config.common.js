@@ -6,7 +6,6 @@ const AutoprefixerPlugin = require("autoprefixer");
 const BUNDLE_NAME = "bundle.js";
 const PATHS = {
   app: [path.join(__dirname, "./src/index.js")],
-  src: path.join(__dirname, "./src/"),
   dist: path.join(__dirname, "dist"),
   template: path.resolve(__dirname, "static/template.html"),
 };
