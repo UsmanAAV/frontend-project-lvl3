@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Webpack Package</title>
-  </head>
-  <body>
+function renderAddRSSFeedForm() {
+  return `
     <div class="jumbotron">
       <form class="form-inline">
         <label class="sr-only" for="inlineFormInputName2">RSS-поток</label>
@@ -12,5 +8,7 @@
         <button type="submit" class="btn btn-primary mb-2">Добавить</button>
       </form>
     </div>
-  </body>
-</html>
+  `;
+}
+
+export { renderAddRSSFeedForm };
