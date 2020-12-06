@@ -1,1 +1,1 @@
-export const FORM_ID = "rss-form";
+export const FORM_ID = 'rss-form';

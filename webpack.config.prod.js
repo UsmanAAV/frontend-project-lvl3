@@ -1,9 +1,9 @@
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const { merge } = require("webpack-merge");
-const CommonConfig = require("./webpack.config.common.js");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { merge } = require('webpack-merge');
+const CommonConfig = require('./webpack.config.common.js');
 
 module.exports = merge(CommonConfig, {
-  mode: "production",
+  mode: 'production',
 
   optimization: {
     minimizer: [
@@ -20,10 +20,10 @@ module.exports = merge(CommonConfig, {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             sourceMaps: false,
-            presets: ["@babel/preset-env"],
+            presets: ['@babel/preset-env'],
             plugins: [],
           },
         },

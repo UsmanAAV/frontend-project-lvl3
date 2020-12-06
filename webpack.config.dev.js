@@ -1,13 +1,13 @@
-const { merge } = require("webpack-merge");
-const CommonConfig = require("./webpack.config.common.js");
+const { merge } = require('webpack-merge');
+const CommonConfig = require('./webpack.config.common.js');
 
 module.exports = merge(CommonConfig, {
-  mode: "development",
+  mode: 'development',
 
   watch: true,
 
   watchOptions: {
-    ignored: "/node_modules/",
+    ignored: '/node_modules/',
   },
 
   module: {
@@ -16,10 +16,10 @@ module.exports = merge(CommonConfig, {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             sourceMaps: true,
-            presets: ["@babel/preset-env"],
+            presets: ['@babel/preset-env'],
             plugins: [],
           },
         },
@@ -27,7 +27,7 @@ module.exports = merge(CommonConfig, {
     ],
   },
 
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
 
   devServer: {
     compress: false,

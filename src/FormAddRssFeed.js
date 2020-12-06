@@ -1,7 +1,7 @@
-import { FORM_ID } from "./constants";
+import { FORM_ID } from './constants';
 
 function renderAddRSSFeedForm() {
-  const inputId = "rss-url-input";
+  const inputId = 'rss-url-input';
   return `
     <div class="jumbotron jumbotron-fluid">
       <div class="container-xl">
