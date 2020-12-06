@@ -1,1 +1,4 @@
-export const FORM_ID = 'rss-form';
+export const FORM = {
+  id: 'rss-form',
+  inputId: 'rss-url-input',
+};
