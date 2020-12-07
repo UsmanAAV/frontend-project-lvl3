@@ -10,23 +10,6 @@ module.exports = merge(CommonConfig, {
     ignored: '/node_modules/',
   },
 
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            sourceMaps: true,
-            presets: ['@babel/preset-env'],
-            plugins: [],
-          },
-        },
-      },
-    ],
-  },
-
   devtool: 'inline-source-map',
 
   devServer: {
