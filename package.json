@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "start": "webpack-dev-server -d --config webpack.config.dev.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cypress run",
     "lint:precommit": "eslint . --fix --max-warnings=0 && prettier . --write",
     "lint:ci": "eslint . --max-warnings=0 && prettier . --check"
   },
