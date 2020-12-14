@@ -1,14 +1,20 @@
 import * as yup from 'yup';
+import axios from 'axios';
+import _ from 'lodash';
 import { renderAddRSSFeedForm } from './FormAddRssFeed';
 import { FORM } from './constants';
 
 const APP_TITLE = 'RSS reader';
 
-const handleSubmitForm = (e) => {
-  e.preventDefault();
+const state = {
+  input: {
+    value: '',
+  },
 };
 
-const handleInputChange = (e) => {
+const handleSubmitForm = (e) => {
+  e.preventDefault();
+
   yup.setLocale({
     string: {
       required: 'Please fill in this field',
@@ -20,12 +26,21 @@ const handleInputChange = (e) => {
     input: yup.string().required().url(),
   });
 
-  schema.validate({ input: e.target.value }).catch((err) => {
-    const input = document.querySelector(`#${FORM.inputId}`);
-    input.classList.add('is-invalid');
-    const error = document.querySelector(`#${FORM.errorId}`);
-    error.innerText = err.message;
-  });
+  schema
+    .validate({ input: _.get(state, 'input.value') })
+    .then(({ input }) => {
+      axios.get(input);
+    })
+    .catch((err) => {
+      const input = document.querySelector(`#${FORM.inputId}`);
+      input.classList.add('is-invalid');
+      const error = document.querySelector(`#${FORM.errorId}`);
+      error.innerText = err.message;
+    });
+};
+
+const handleInputChange = (e) => {
+  _.set(state, 'input.value', e.target.value);
 };
 
 function app() {
