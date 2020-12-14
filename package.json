@@ -51,8 +51,8 @@
     "webpack-merge": "^5.4.0"
   },
   "lint-staged": {
-    "*.js": [
-      "npm run lint:precommit",
+    "*": [
+      "make lint-fix",
       "git add"
     ]
   },
