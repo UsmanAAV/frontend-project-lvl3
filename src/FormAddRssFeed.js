@@ -12,10 +12,24 @@ function renderAddRSSFeedForm() {
             <form id="${FORM.id}">
               <div class="form-row">
                 <div class="col">
-                  <input name="${FORM.inputId}" required type="text" class="form-control form-control-lg w-100" id="${FORM.inputId}">
+                  <input
+                    name="${FORM.inputId}"
+                    required
+                    type="text"
+                    class="form-control
+                    form-control-lg w-100"
+                    id="${FORM.inputId}"
+                    data-test='input'
+                  >
                 </div>
                 <div class="col-auto">
-                  <button type="submit" class="btn btn-lg btn-primary px-sm-5">Add</button>
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-primary px-sm-5"
+                    data-test="submit-button"
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
             </form>
