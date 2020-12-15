@@ -1,8 +1,8 @@
-import * as yup from 'yup';
 import axios from 'axios';
 import _ from 'lodash';
 import { renderAddRSSFeedForm } from './FormAddRssFeed';
 import { FORM } from './constants';
+import { validate } from './validate';
 
 const APP_TITLE = 'RSS reader';
 
@@ -15,19 +15,7 @@ const state = {
 const handleSubmitForm = (e) => {
   e.preventDefault();
 
-  yup.setLocale({
-    string: {
-      required: 'Please fill in this field',
-      url: 'Please enter a valid url',
-    },
-  });
-
-  const schema = yup.object().shape({
-    input: yup.string().required().url(),
-  });
-
-  schema
-    .validate({ input: _.get(state, 'input.value') })
+  validate({ input: _.get(state, 'input.value') })
     .then(({ input }) => {
       axios.get(input);
     })
