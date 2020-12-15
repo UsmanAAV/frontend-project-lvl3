@@ -33,7 +33,7 @@ function renderAddRSSFeedForm() {
                 </div>
               </div>
             </form>
-            <p class="feedback text-danger" id="${FORM.errorId}"></p>
+            <p class="feedback text-danger" id="${FORM.errorId}" data-test="error"></p>
           </div>
         </div>
       </div>
