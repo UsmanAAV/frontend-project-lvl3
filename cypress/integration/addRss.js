@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 const INCORRECT_URL = 'htps://ru.hexlet.io/lessons.rss';
+const CORRECT_URL = 'https://ru.hexlet.io/lessons.rss';
 
 context('add rss form', () => {
   beforeEach(() => {
@@ -11,9 +12,17 @@ context('add rss form', () => {
     cy.get('[data-test="submit-button"]');
   });
 
+  it('clear form after successful request', () => {
+    cy.get('[data-test="input"]').type(CORRECT_URL);
+    cy.get('[data-test="submit-button"]').click();
+    cy.get('[data-test="feedback"').should('have.class', 'text-success');
+    cy.get('[data-test="feedback"').contains('RSS успешно загружен');
+  });
+
   it('show error to an incorrent url', () => {
     cy.get('[data-test="input"]').type(INCORRECT_URL);
     cy.get('[data-test="submit-button"]').click();
-    cy.get('[data-test="error"').contains('Please enter a valid url');
+    cy.get('[data-test="feedback"]').should('have.class', 'text-danger');
+    cy.get('[data-test="feedback"]').contains('Please enter a valid url');
   });
 });
