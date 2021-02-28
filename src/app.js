@@ -1,47 +1,56 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
-import _ from 'lodash';
-import { renderAddRSSFeedForm } from './FormAddRssFeed';
-import { FORM } from './constants';
+import * as onChange from 'on-change';
+import { FORM, FORM_STATE } from './constants';
 import { validate } from './validate';
 
-const APP_TITLE = 'RSS reader';
-
-const state = {
-  input: {
-    value: '',
-  },
-};
-
-const handleSubmitForm = (e) => {
+const getHandleSubmitForm = (state) => (e) => {
   e.preventDefault();
+  const formData = new FormData(e.target);
+  const value = formData.get('rss-url-input');
 
-  validate({ input: _.get(state, 'input.value') })
+  validate({ input: value })
     .then(({ input }) => {
       axios.get(input);
     })
     .catch((err) => {
-      const input = document.querySelector(`#${FORM.inputId}`);
-      input.classList.add('is-invalid');
-      const error = document.querySelector(`#${FORM.errorId}`);
-      error.innerText = err.message;
+      state.formState = FORM_STATE.invalid;
+      state.error = err.message;
     });
 };
 
-const handleInputChange = (e) => {
-  _.set(state, 'input.value', e.target.value);
-};
-
-function app() {
-  document.title = APP_TITLE;
-
-  const mountPoint = document.querySelector('#point');
-  mountPoint.innerHTML = renderAddRSSFeedForm();
-
-  const form = document.querySelector(`#${FORM.id}`);
-  form.addEventListener('submit', handleSubmitForm);
-
+function render(path, value) {
   const input = document.querySelector(`#${FORM.inputId}`);
-  input.addEventListener('change', handleInputChange);
+  const error = document.querySelector(`#${FORM.errorId}`);
+
+  switch (path) {
+    case 'formState':
+      switch (value) {
+        case FORM_STATE.invalid:
+          input.classList.add('is-invalid');
+          break;
+        default:
+      }
+      break;
+    case 'error':
+      error.innerText = value;
+      break;
+    default:
+  }
 }
+
+const app = () => {
+  const state = {
+    formState: FORM_STATE.initial,
+    error: '',
+    feeds: [],
+    posts: [],
+  };
+
+  const watchedState = onChange(state, render);
+
+  const form = document.getElementById('rss-form');
+  form.addEventListener('submit', getHandleSubmitForm(watchedState));
+};
 
 export { app };
