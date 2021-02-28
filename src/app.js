@@ -1,48 +1,48 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import * as onChange from 'on-change';
-import { FORM, FORM_STATE } from './constants';
+import { FORM_STATE } from './constants';
 import { validate } from './validate';
+import { render } from './render';
 
-const getHandleSubmitForm = (state) => (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const value = formData.get('rss-url-input');
+const request = (state, url) =>
+  axios
+    .get(url)
+    .then(() => {
+      state.formState = FORM_STATE.success;
+      state.feedback = 'RSS успешно загружен';
+    })
+    .catch(() => {
+      state.formState = FORM_STATE.invalid;
+      state.feedback = 'Ошибка сети';
+    });
 
-  validate({ input: value })
-    .then(({ input }) => {
-      axios.get(input);
+const process = (state, url) =>
+  validate({ input: url })
+    .then(({ input: validatedUrl }) => {
+      state.formState = FORM_STATE.submitting;
+      state.feedback = '';
+      request(state, validatedUrl);
     })
     .catch((err) => {
       state.formState = FORM_STATE.invalid;
-      state.error = err.message;
+      state.feedback = err.message;
     });
-};
 
-function render(path, value) {
-  const input = document.querySelector(`#${FORM.inputId}`);
-  const error = document.querySelector(`#${FORM.errorId}`);
+function getHandleSubmitForm(state) {
+  return function handler(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const url = formData.get('rss-url-input');
 
-  switch (path) {
-    case 'formState':
-      switch (value) {
-        case FORM_STATE.invalid:
-          input.classList.add('is-invalid');
-          break;
-        default:
-      }
-      break;
-    case 'error':
-      error.innerText = value;
-      break;
-    default:
-  }
+    process(state, url);
+  };
 }
 
-const app = () => {
+function app() {
   const state = {
     formState: FORM_STATE.initial,
-    error: '',
+    feedback: '',
     feeds: [],
     posts: [],
   };
@@ -51,6 +51,6 @@ const app = () => {
 
   const form = document.getElementById('rss-form');
   form.addEventListener('submit', getHandleSubmitForm(watchedState));
-};
+}
 
 export { app };

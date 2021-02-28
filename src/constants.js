@@ -1,11 +1,12 @@
 export const FORM = {
   id: 'rss-form',
   inputId: 'rss-url-input',
-  errorId: 'error',
+  feedback: 'feedback',
 };
 
 export const FORM_STATE = {
+  submitting: 'submitting',
   initial: 'initial',
   invalid: 'invalid',
-  valid: 'valid',
+  success: 'success',
 };
