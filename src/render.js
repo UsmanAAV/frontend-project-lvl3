@@ -6,7 +6,7 @@ function render(path, value) {
   const button = document.querySelector('button');
 
   switch (path) {
-    case 'formState':
+    case 'form.state':
       switch (value) {
         case FORM_STATE.initial:
           input.classList.remove('is-invalid');
@@ -38,7 +38,7 @@ function render(path, value) {
         default:
       }
       break;
-    case 'feedback':
+    case 'form.feedback':
       feedback.innerText = value;
       break;
     default:

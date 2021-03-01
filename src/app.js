@@ -1,32 +1,38 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import * as onChange from 'on-change';
+import _ from 'lodash';
 import { FORM_STATE } from './constants';
-import { validate } from './validate';
+import { validateForm } from './validate';
 import { render } from './render';
+
+const validate = (state, url) =>
+  validateForm({ input: url }).then(() => {
+    state.form.state = FORM_STATE.submitting;
+    state.form.feedback = '';
+  });
+
+const addRssUrl = (state, url) => {
+  return new Promise((resolve, reject) => {
+    if (_.includes(state.feeds, url)) {
+      reject(new Error('RSS уже существует'));
+    } else {
+      state.feeds.push(url);
+      resolve();
+    }
+  });
+};
 
 const request = (state, url) =>
   axios
     .get(url)
-    .then(() => {
-      state.formState = FORM_STATE.success;
-      state.feedback = 'RSS успешно загружен';
+    .then((data) => {
+      state.form.state = FORM_STATE.success;
+      state.form.feedback = 'RSS успешно загружен';
+      return data;
     })
     .catch(() => {
-      state.formState = FORM_STATE.invalid;
-      state.feedback = 'Ошибка сети';
-    });
-
-const process = (state, url) =>
-  validate({ input: url })
-    .then(({ input: validatedUrl }) => {
-      state.formState = FORM_STATE.submitting;
-      state.feedback = '';
-      request(state, validatedUrl);
-    })
-    .catch((err) => {
-      state.formState = FORM_STATE.invalid;
-      state.feedback = err.message;
+      throw new Error('Ошибка сети');
     });
 
 function getHandleSubmitForm(state) {
@@ -35,16 +41,23 @@ function getHandleSubmitForm(state) {
     const formData = new FormData(e.target);
     const url = formData.get('rss-url-input');
 
-    process(state, url);
+    validate(state, url)
+      .then(() => addRssUrl(state, url))
+      .then(() => request(state, url))
+      .catch((error) => {
+        state.form.state = FORM_STATE.invalid;
+        state.form.feedback = error.message;
+      });
   };
 }
 
 function app() {
   const state = {
-    formState: FORM_STATE.initial,
-    feedback: '',
+    form: {
+      state: FORM_STATE.initial,
+      feedback: '',
+    },
     feeds: [],
-    posts: [],
   };
 
   const watchedState = onChange(state, render);

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const validate = (data) => {
+const validateForm = (data) => {
   yup.setLocale({
     string: {
       required: 'Please fill in this field',
@@ -15,4 +15,4 @@ const validate = (data) => {
   return schema.validate(data);
 };
 
-export { validate };
+export { validateForm };
