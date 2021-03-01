@@ -25,4 +25,13 @@ context('add rss form', () => {
     cy.get('[data-test="feedback"]').should('have.class', 'text-danger');
     cy.get('[data-test="feedback"]').contains('Please enter a valid url');
   });
+
+  it('show error if add duplicate feed', () => {
+    cy.get('[data-test="input"]').type(CORRECT_URL);
+    cy.get('[data-test="submit-button"]').click();
+    cy.get('[data-test="input"]').type(CORRECT_URL);
+    cy.get('[data-test="submit-button"]').click();
+    cy.get('[data-test="feedback"').should('have.class', 'text-danger');
+    cy.get('[data-test="feedback"').contains('RSS уже существует');
+  });
 });
