@@ -36,8 +36,17 @@ const fetchData = (state, url) =>
       return data;
     })
     .catch(() => {
-      throw new Error('Ошибка сети');
+      return Promise.reject(new Error('Ошибка сети'));
     });
+
+const validateResponse = (state, response) => {
+  const contentType = _.get(response, 'headers.content-type');
+  const hasRss =
+    contentType.includes('application/rss+xml') || contentType.includes('application/xml');
+  if (!hasRss) {
+    throw new Error('Формат данного RSS не поддерживается');
+  }
+};
 
 function getSubmitHandler(state) {
   return function handler(e) {
@@ -47,11 +56,18 @@ function getSubmitHandler(state) {
 
     validateForm(state, url)
       .then(() => {
-        state.feeds.push(url);
         state.form.state = FORM_STATE.submitting;
         state.form.feedback = '';
-        fetchData(state, url);
+        return fetchData(state, url);
       })
+      .then((response) => {
+        validateResponse(state, response);
+        return response;
+      })
+      // .then((response) => {
+      //   state.feeds.push(url);
+      //   return response;
+      // })
       .catch((error) => {
         state.form.state = FORM_STATE.invalid;
         state.form.feedback = error.message;
