@@ -11,6 +11,7 @@ function app() {
       feedback: '',
     },
     feeds: [],
+    posts: [],
   };
 
   const watchedState = onChange(state, render);
