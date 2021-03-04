@@ -3,7 +3,7 @@ import { FORM, FORM_STATE } from './constants';
 function render(path, value) {
   const input = document.querySelector(`#${FORM.inputId}`);
   const feedback = document.querySelector(`#${FORM.feedback}`);
-  const button = document.querySelector('button');
+  const button = document.querySelector('button[type="submit"]');
 
   switch (path) {
     case 'form.state':
