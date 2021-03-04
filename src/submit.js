@@ -60,7 +60,7 @@ function getSubmitHandler(state) {
         if (error) {
           throw new Error(error);
         }
-        state.posts.push({ description, posts, title });
+        state.posts.push({ description, id: _.uniqueId(), posts, title });
         return result;
       })
       .then((response) => {

@@ -10,20 +10,21 @@ const parse = (response) => {
     return {
       description: '',
       error: 'Произошла ошибка парсинга',
-      link: '',
+      posts: [],
       title: '',
     };
   }
 
-  const title = doc.querySelector('channel title');
-  const description = doc.querySelector('channel description');
-
   const postsEl = doc.querySelectorAll('channel item');
-  const posts = _.map(postsEl, (item) => ({
+  const posts = _.map(postsEl, (item, id) => ({
     description: item.querySelector('description').textContent,
-    link: item.querySelector('link').textContent,
+    id,
+    link: item.querySelector('link')?.textContent,
     title: item.querySelector('title').textContent,
   }));
+
+  const title = doc.querySelector('channel title').textContent;
+  const description = doc.querySelector('channel description').textContent;
 
   return { description, error, posts, title };
 };
