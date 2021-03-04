@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import i18next from 'i18next';
 
 const parse = (response) => {
   const parser = new DOMParser();
@@ -7,7 +8,7 @@ const parse = (response) => {
 
   const error = doc.querySelector('parsererror');
   if (error) {
-    return { error: 'Произошла ошибка парсинга' };
+    return { error: i18next.t('parseError') };
   }
 
   const feedId = _.uniqueId();

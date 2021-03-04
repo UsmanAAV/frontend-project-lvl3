@@ -2,6 +2,7 @@
 import axios from 'axios';
 import * as yup from 'yup';
 import _ from 'lodash';
+import i18next from 'i18next';
 import { parse } from './parse';
 
 import { FORM_STATE } from './constants';
@@ -11,8 +12,8 @@ const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get?url=';
 const validate = (data) => {
   yup.setLocale({
     string: {
-      required: 'Please fill in this field',
-      url: 'Please enter a valid url',
+      required: i18next.t('input.required'),
+      url: i18next.t('input.url'),
     },
   });
 
@@ -26,7 +27,7 @@ const validate = (data) => {
 const validateForm = (state, url) =>
   validate({ input: url }).then(() => {
     if (_.find(state.feeds, { url })) {
-      throw new Error('RSS уже существует');
+      throw new Error(i18next.t('rssAlreadyExists'));
     }
   });
 
@@ -35,11 +36,11 @@ const fetchData = (state, url) =>
     .get(`${allOrigins}${encodeURIComponent(url)}`)
     .then((data) => {
       state.form.state = FORM_STATE.success;
-      state.form.feedback = 'RSS успешно загружен';
+      state.form.feedback = i18next.t('rssAddedSuccessfully');
       return data;
     })
     .catch(() => {
-      return Promise.reject(new Error('Ошибка сети'));
+      return Promise.reject(new Error(i18next.t('networkError')));
     });
 
 function getSubmitHandler(state) {

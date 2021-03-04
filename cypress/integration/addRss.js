@@ -23,7 +23,7 @@ context('add rss form', () => {
     cy.get('[data-test="input"]').type(INCORRECT_URL);
     cy.get('[data-test="submit-button"]').click();
     cy.get('[data-test="feedback"]').should('have.class', 'text-danger');
-    cy.get('[data-test="feedback"]').contains('Please enter a valid url');
+    cy.get('[data-test="feedback"]').contains('Пожалуйста, введите валидный url-адрес');
   });
 
   it('show error if add duplicate feed', () => {

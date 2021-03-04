@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import i18next from 'i18next';
 import { FORM, FORM_STATE } from './constants';
 
 function render(path, value) {
@@ -49,7 +50,7 @@ function render(path, value) {
         break;
       }
       feeds.innerHTML = `
-        <h2>Фиды</h2>
+        <h2>${i18next.t('feeds')}</h2>
         <ul class="list-group mb-5">${_.map(
           value,
           ({ title, description }) => `
@@ -66,7 +67,7 @@ function render(path, value) {
         break;
       }
       posts.innerHTML = `
-        <h2>Посты</h2>
+        <h2>${i18next.t('posts')}</h2>
         <ul class="list-group">
           ${_.map(
             value,
@@ -80,7 +81,7 @@ function render(path, value) {
                     : title
                 }
                 <button type="button" class="btn btn-primary btn-sm" data-id="${id}" data-toggle="modal" data-target="#modal">
-                  Просмотр
+                  ${i18next.t('view')}
                 </button>
               </li>
             `
