@@ -5,15 +5,13 @@ const AutoprefixerPlugin = require('autoprefixer');
 
 const BUNDLE_NAME = 'bundle.js';
 const PATHS = {
-  app: [path.join(__dirname, './src/index.js')],
+  app: path.join(__dirname, './src/index.js'),
   dist: path.join(__dirname, 'dist'),
   template: path.resolve(__dirname, 'static/template.html'),
 };
 
 module.exports = {
-  entry: {
-    app: PATHS.app,
-  },
+  entry: ['@babel/polyfill', PATHS.app],
 
   output: {
     path: PATHS.dist,
