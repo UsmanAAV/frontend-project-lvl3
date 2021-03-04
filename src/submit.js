@@ -25,7 +25,7 @@ const validate = (data) => {
 
 const validateForm = (state, url) =>
   validate({ input: url }).then(() => {
-    if (_.includes(state.feeds, url)) {
+    if (_.find(state.feeds, { url })) {
       throw new Error('RSS уже существует');
     }
   });
@@ -56,16 +56,13 @@ function getSubmitHandler(state) {
       })
       .then((response) => {
         const result = parse(response);
-        const { description, error, posts, title } = result;
+        const { description, error, id, posts, title } = result;
         if (error) {
           throw new Error(error);
         }
-        state.posts.push({ description, id: _.uniqueId(), posts, title });
+        state.feeds.push({ description, id, title, url });
+        state.posts.push(...posts);
         return result;
-      })
-      .then((response) => {
-        state.feeds.push(url);
-        return response;
       })
       .catch((error) => {
         state.form.state = FORM_STATE.invalid;

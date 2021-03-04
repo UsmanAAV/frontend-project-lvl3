@@ -7,18 +7,15 @@ const parse = (response) => {
 
   const error = doc.querySelector('parsererror');
   if (error) {
-    return {
-      description: '',
-      error: 'Произошла ошибка парсинга',
-      posts: [],
-      title: '',
-    };
+    return { error: 'Произошла ошибка парсинга' };
   }
 
+  const feedId = _.uniqueId();
+
   const postsEl = doc.querySelectorAll('channel item');
-  const posts = _.map(postsEl, (item, id) => ({
+  const posts = _.map(postsEl, (item) => ({
     description: item.querySelector('description').textContent,
-    id,
+    feedId,
     link: item.querySelector('link')?.textContent,
     title: item.querySelector('title').textContent,
   }));
@@ -26,7 +23,7 @@ const parse = (response) => {
   const title = doc.querySelector('channel title').textContent;
   const description = doc.querySelector('channel description').textContent;
 
-  return { description, error, posts, title };
+  return { description, id: feedId, posts, title };
 };
 
 export { parse };
