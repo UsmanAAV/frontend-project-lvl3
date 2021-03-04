@@ -13,9 +13,10 @@ const parse = (response) => {
   const feedId = _.uniqueId();
 
   const postsEl = doc.querySelectorAll('channel item');
-  const posts = _.map(postsEl, (item) => ({
+  const posts = _.map(postsEl, (item, id) => ({
     description: item.querySelector('description').textContent,
     feedId,
+    id,
     link: item.querySelector('link')?.textContent,
     title: item.querySelector('title').textContent,
   }));
