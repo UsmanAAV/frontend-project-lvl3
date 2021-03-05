@@ -43,6 +43,7 @@ function render(path, value) {
           feedback.classList.add('text-success');
           break;
         default:
+          throw new Error(i18next.t('missingFormState'));
       }
       break;
     case 'form.feedback':
@@ -120,6 +121,7 @@ function render(path, value) {
       break;
     }
     default:
+      throw new Error(i18next.t('missingRenderCase'));
   }
 }
 

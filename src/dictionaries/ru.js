@@ -11,6 +11,8 @@ const ru = {
     rssAddedSuccessfully: 'RSS успешно загружен',
     networkError: 'Ошибка сети',
     parseError: 'Произошла ошибка парсинга',
+    missingFormState: 'Не предусмотрено такое состояние формы',
+    missingRenderCase: 'В рендере отсутствует отсутствует обработчик для этого случая',
   },
 };
 
