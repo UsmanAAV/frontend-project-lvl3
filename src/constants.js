@@ -10,3 +10,5 @@ export const FORM_STATE = {
   invalid: 'invalid',
   success: 'success',
 };
+
+export const INTERVAL = 5000;

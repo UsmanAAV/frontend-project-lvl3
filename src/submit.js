@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import _ from 'lodash';
 import i18next from 'i18next';
 import { parse } from './parse';
+import { getTimeout } from './timeout';
 
 import { FORM_STATE } from './constants';
 
@@ -31,19 +32,36 @@ const validateForm = (state, url) =>
     }
   });
 
-const fetchData = (state, url) =>
+const fetchData = (url) =>
   axios
     .get(`${allOrigins}${encodeURIComponent(url)}`)
     .then((data) => {
-      state.form.state = FORM_STATE.success;
-      state.form.feedback = i18next.t('rssAddedSuccessfully');
       return data;
     })
     .catch(() => {
       return Promise.reject(new Error(i18next.t('networkError')));
     });
 
+const updateFeeds = (state) => () => {
+  _.forEach(state.feeds, ({ id, url }) => {
+    fetchData(url).then((response) => {
+      const result = parse(response);
+      const { error, posts: newPosts } = result;
+      if (error) {
+        return;
+      }
+      const [feedPosts, otherPosts] = _.partition(state.posts, { feedId: id });
+      const arePostsChanged = _.isEqual(feedPosts, newPosts);
+      if (arePostsChanged) {
+        state.posts = [...otherPosts, ...newPosts];
+      }
+    });
+  });
+};
+
 function getSubmitHandler(state) {
+  const { start: onSubmitSuccess, stop: onBeforeSubmit } = getTimeout(updateFeeds(state));
+
   return function handler(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -53,7 +71,8 @@ function getSubmitHandler(state) {
       .then(() => {
         state.form.state = FORM_STATE.submitting;
         state.form.feedback = '';
-        return fetchData(state, url);
+        onBeforeSubmit();
+        return fetchData(url);
       })
       .then((response) => {
         const result = parse(response);
@@ -63,6 +82,9 @@ function getSubmitHandler(state) {
         }
         state.feeds.push({ description, id, title, url });
         state.posts.push(...posts);
+        state.form.state = FORM_STATE.success;
+        state.form.feedback = i18next.t('rssAddedSuccessfully');
+        onSubmitSuccess();
         return result;
       })
       .catch((error) => {
