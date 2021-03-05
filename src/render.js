@@ -8,6 +8,9 @@ function render(path, value) {
   const button = document.querySelector('button[type="submit"]');
   const feeds = document.querySelector('.feeds');
   const posts = document.querySelector('.posts');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalBody = document.querySelector('.modal-body');
+  const modalLink = document.querySelector('.modal-footer>a');
 
   switch (path) {
     case 'form.state':
@@ -89,6 +92,33 @@ function render(path, value) {
         </ul>
       `;
       break;
+    case 'openedPostId': {
+      const post = _.find(this.posts, { id: value });
+
+      if (!post) {
+        return;
+      }
+
+      const { description, link, title } = post;
+
+      modalTitle.textContent = title;
+      modalBody.textContent = description;
+      if (link) {
+        modalLink.setAttribute('href', link);
+        modalLink.classList.remove('invisible');
+      } else {
+        modalLink.classList.add('invisible');
+      }
+      break;
+    }
+    case 'readPosts': {
+      const post = document.querySelector(`[data-id="${_.last(value)}"]`);
+      if (post.classList.contains('font-weight-bold')) {
+        post.classList.add('font-weight-normal');
+        post.classList.remove('font-weight-bold');
+      }
+      break;
+    }
     default:
   }
 }
