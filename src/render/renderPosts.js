@@ -4,9 +4,6 @@ import i18next from 'i18next';
 function renderPosts(value) {
   const posts = document.querySelector('.posts');
 
-  if (_.size(value) === 0) {
-    return;
-  }
   posts.innerHTML = `
     <h2>${i18next.t('posts')}</h2>
     <ul class="list-group">

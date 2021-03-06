@@ -1,4 +1,5 @@
 import i18next from 'i18next';
+import _ from 'lodash';
 import { renderFormState } from './renderFormState';
 import { renderFeeds } from './renderFeeds';
 import { renderPosts } from './renderPosts';
@@ -15,9 +16,15 @@ function render(path, value) {
       renderFeedback(value);
       break;
     case 'feeds':
+      if (_.size(value) === 0) {
+        break;
+      }
       renderFeeds(value);
       break;
     case 'posts':
+      if (_.size(value) === 0) {
+        break;
+      }
       renderPosts(value);
       break;
     case 'openedPostId':
