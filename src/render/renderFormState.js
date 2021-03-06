@@ -6,14 +6,18 @@ function renderFormState(value) {
   const feedback = document.querySelector(`#${FORM.feedback}`);
   const button = document.querySelector('button[type="submit"]');
 
+  const resetState = () => {
+    input.classList.remove('is-invalid');
+    input.value = '';
+    input.disabled = false;
+    button.disabled = false;
+    feedback.classList.remove('text-danger');
+    feedback.classList.remove('text-success');
+  };
+
   switch (value) {
     case FORM_STATE.initial:
-      input.classList.remove('is-invalid');
-      input.value = '';
-      input.disabled = false;
-      button.disabled = false;
-      feedback.classList.remove('text-danger');
-      feedback.classList.remove('text-success');
+      resetState();
       break;
     case FORM_STATE.invalid:
       input.classList.add('is-invalid');
@@ -27,11 +31,7 @@ function renderFormState(value) {
       button.disabled = true;
       break;
     case FORM_STATE.success:
-      input.classList.remove('is-invalid');
-      input.value = '';
-      input.disabled = false;
-      button.disabled = false;
-      feedback.classList.remove('text-danger');
+      resetState();
       feedback.classList.add('text-success');
       break;
     default:
