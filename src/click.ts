@@ -2,23 +2,12 @@
 import { TState } from './types';
 
 const getClickHandler = (state: TState) => (event: MouseEvent): void => {
-  if (!(event.target instanceof HTMLElement)) {
-    return;
-  }
-
+  const { target } = event;
   const {
-    target: {
-      dataset: { id },
-    },
-  } = event;
+    dataset: { id = '' },
+  } = target as HTMLElement;
 
   if (!id) {
-    return;
-  }
-
-  const isButton = event.target instanceof HTMLButtonElement;
-  const isAnchor = event.target instanceof HTMLAnchorElement;
-  if (!(isButton || isAnchor)) {
     return;
   }
 
