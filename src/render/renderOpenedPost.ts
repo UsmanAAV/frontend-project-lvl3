@@ -1,11 +1,15 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
+import { TPost, TState } from '../types';
 
-function renderOpenedPost(value, state) {
+function renderOpenedPost(
+  value: string,
+  state: TState,
+) {
   const modalTitle = document.querySelector('.modal-title');
   const modalBody = document.querySelector('.modal-body');
   const modalLink = document.querySelector('.modal-footer>a');
 
-  const post = _.find(state.posts, { id: value });
+  const post = state.posts.find(({ id }) => id === value);
 
   if (!post) {
     return;
@@ -13,8 +17,15 @@ function renderOpenedPost(value, state) {
 
   const { description, link, title } = post;
 
-  modalTitle.textContent = title;
-  modalBody.textContent = description;
+  if (modalTitle) {
+    modalTitle.textContent = title;
+  }
+  if (modalBody) {
+    modalBody.textContent = description;
+  }
+  if (!modalLink) {
+    return;
+  }
   if (link) {
     modalLink.setAttribute('href', link);
     modalLink.classList.remove('invisible');

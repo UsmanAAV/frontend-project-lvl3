@@ -1,10 +1,14 @@
 /* eslint-disable */
-import _ from 'lodash';
+import * as _ from 'lodash';
 import i18next from 'i18next';
+import { TFeed } from '../types';
 
-function renderFeeds(value) {
+function renderFeeds(value: TFeed[]) {
   const feeds = document.querySelector('.feeds');
 
+  if (!feeds) {
+    return;
+  }
   feeds.innerHTML = `
     <h2>${i18next.t('feeds')}</h2>
     <ul class="list-group mb-5">${_.map(

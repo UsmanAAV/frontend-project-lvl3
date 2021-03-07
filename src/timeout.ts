@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { INTERVAL } from './constants';
 
-const getTimeout = (callback) => {
-  let timeout = null;
+const getTimeout = (callback: Function) => {
+  let timeout: NodeJS.Timeout | null = null;
 
   const stop = () => {
     if (timeout) {

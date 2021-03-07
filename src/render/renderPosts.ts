@@ -1,9 +1,14 @@
 /* eslint-disable */
-import _ from 'lodash';
+import { TPost } from './../types';
+import * as _ from 'lodash';
 import i18next from 'i18next';
 
-function renderPosts(value) {
+function renderPosts(value: TPost[]) {
   const posts = document.querySelector('.posts');
+
+  if (!posts) {
+    return;
+  }
 
   posts.innerHTML = `
     <h2>${i18next.t('posts')}</h2>

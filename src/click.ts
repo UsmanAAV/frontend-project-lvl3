@@ -1,13 +1,24 @@
 /* eslint-disable no-param-reassign */
-const getClickHandler = (state) => (event) => {
+import { TState } from './types';
+
+const getClickHandler = (state: TState) => (event: MouseEvent) => {
+  if (!(event.target instanceof HTMLElement)) {
+    return;
+  }
+
   const {
     target: {
       dataset: { id },
-      tagName,
     },
   } = event;
 
-  if (!(tagName === 'BUTTON' || tagName === 'A')) {
+  if (!id) {
+    return;
+  }
+
+  const isButton = event.target instanceof HTMLButtonElement;
+  const isAnchor = event.target instanceof HTMLAnchorElement;
+  if (!(isButton || isAnchor)) {
     return;
   }
 

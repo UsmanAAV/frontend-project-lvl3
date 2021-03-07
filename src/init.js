@@ -2,7 +2,7 @@
 import onChangeProxy from 'on-change';
 import i18next from 'i18next';
 import 'bootstrap';
-import { FORM_STATE } from './constants';
+import { FORM_STATE } from './constants.ts';
 import render from './render';
 import getSubmitHandler from './submit';
 import ru from './dictionaries';
