@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/UsmanAAV/frontend-project-lvl3#readme",
   "devDependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
     "@types/lodash": "^4.14.168",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
