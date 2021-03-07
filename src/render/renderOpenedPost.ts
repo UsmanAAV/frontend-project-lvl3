@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { TState } from './../types';
 
 function renderOpenedPost(value: string, state: TState) {

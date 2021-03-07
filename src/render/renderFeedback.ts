@@ -1,6 +1,6 @@
 import { FORM } from '../constants';
 
-function renderFeedback(value: string) {
+function renderFeedback(value: string): void {
   const feedback = document.querySelector<HTMLDivElement>(`#${FORM.feedback}`);
 
   if (!feedback) {

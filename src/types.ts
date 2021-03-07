@@ -32,3 +32,13 @@ export type TState = {
   openedPostId: string | null;
   readPosts: string[];
 };
+
+export type TTimeoutResult = {
+  start: () => void;
+  stop: () => void;
+};
+
+export type TParseResult = {
+  feed: TFeed;
+  posts: TPost[];
+};

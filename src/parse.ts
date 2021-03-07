@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
 import { AxiosResponse } from 'axios';
 import i18next from 'i18next';
+import { TParseResult } from './types';
 
-const parse = (response: AxiosResponse) => {
+const parse = (response: AxiosResponse, url: string): TParseResult => {
   const parser = new DOMParser();
 
   const doc = parser.parseFromString(response.data.contents, 'application/xml');
@@ -30,10 +31,8 @@ const parse = (response: AxiosResponse) => {
   const description = doc.querySelector('channel description')?.textContent || '';
 
   return {
-    description,
-    id: feedId,
+    feed: { description, id: feedId, title, url },
     posts,
-    title,
   };
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { TState } from './types';
 
-const getClickHandler = (state: TState) => (event: MouseEvent) => {
+const getClickHandler = (state: TState) => (event: MouseEvent): void => {
   if (!(event.target instanceof HTMLElement)) {
     return;
   }

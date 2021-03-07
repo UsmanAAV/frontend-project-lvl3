@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import i18next from 'i18next';
 import { TFeed } from '../types';
 
-function renderFeeds(value: TFeed[]) {
+function renderFeeds(value: TFeed[]): void {
   const feeds = document.querySelector('.feeds');
 
   if (!feeds) {

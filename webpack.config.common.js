@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const AutoprefixerPlugin = require('autoprefixer');
 
 const BUNDLE_NAME = 'bundle.js';
 const PATHS = {
@@ -38,17 +38,6 @@ module.exports = {
           {
             // Interprets `@import` and `url()` like `import/require()` and will resolve them
             loader: 'css-loader',
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins() {
-                  return [AutoprefixerPlugin];
-                },
-              },
-            },
           },
           {
             // Loads a SASS/SCSS file and compiles it to CSS

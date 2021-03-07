@@ -50,7 +50,7 @@ const fetchData = (url: string) =>
 const updateFeeds = (state: TState) => () => {
   _.forEach(state.feeds, ({ id, url }) => {
     fetchData(url).then((response) => {
-      const result = parse(response);
+      const result = parse(response, url);
       const { posts: newPosts } = result;
       const res = _.partition(state.posts, { feedId: id });
       const [feedPosts, otherPosts] = res;
@@ -62,7 +62,7 @@ const updateFeeds = (state: TState) => () => {
   });
 };
 
-function getSubmitHandler(state: TState) {
+function getSubmitHandler(state: TState): (e: Event) => void {
   const { start: onSubmitSuccess, stop: onBeforeSubmit } = getTimeout(updateFeeds(state));
 
   return function handler(e: Event) {
@@ -81,8 +81,9 @@ function getSubmitHandler(state: TState) {
         return fetchData(url);
       })
       .then((response) => {
-        const result = parse(response);
-        const { description, id, posts, title } = result;
+        const result = parse(response, url);
+        const { feed, posts } = result;
+        const { description, id, title } = feed;
         state.feeds.push({ description, id, title, url });
         state.posts.push(...posts);
         state.form.state = EFormState.SUCCESS;

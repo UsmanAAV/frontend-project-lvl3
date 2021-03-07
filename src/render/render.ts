@@ -8,7 +8,8 @@ import renderOpenedPost from './renderOpenedPost';
 import renderReadPost from './renderReadPost';
 import renderFeedback from './renderFeedback';
 
-function render(path: string, value: any) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function render(path: string, value): void {
   switch (path) {
     case 'form.state':
       renderFormState(value);

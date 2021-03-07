@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import { FORM } from '../constants';
 import { EFormState } from '../types';
 
-function renderFormState(value: EFormState) {
+function renderFormState(value: EFormState): void {
   const input = document.querySelector<HTMLInputElement>(`#${FORM.inputId}`);
   const feedback = document.querySelector<HTMLDivElement>(`#${FORM.feedback}`);
   const button = document.querySelector<HTMLButtonElement>('button[type="submit"]');

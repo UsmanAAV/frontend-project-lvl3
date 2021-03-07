@@ -3,7 +3,7 @@ import { TPost } from './../types';
 import * as _ from 'lodash';
 import i18next from 'i18next';
 
-function renderPosts(value: TPost[]) {
+function renderPosts(value: TPost[]): void {
   const posts = document.querySelector('.posts');
 
   if (!posts) {
