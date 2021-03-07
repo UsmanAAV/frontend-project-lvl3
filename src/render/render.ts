@@ -8,6 +8,8 @@ import renderOpenedPost from './renderOpenedPost';
 import renderReadPost from './renderReadPost';
 import renderFeedback from './renderFeedback';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: Unreachable code error
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function render(path: string, value): void {
   switch (path) {
