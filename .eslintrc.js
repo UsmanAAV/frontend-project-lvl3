@@ -8,8 +8,8 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
-    'prettier',
     'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,11 +19,11 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
   },
-  plugins: ['cypress', '@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'cypress', 'prettier'],
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts'],
+        extensions: ['.ts'],
       },
     },
   },
