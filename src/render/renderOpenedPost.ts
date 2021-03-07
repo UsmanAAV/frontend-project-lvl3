@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { TState } from './../types';
 
 function renderOpenedPost(value: string, state: TState) {
-  const modalTitle = document.querySelector('.modal-title');
-  const modalBody = document.querySelector('.modal-body');
-  const modalLink = document.querySelector('.modal-footer>a');
+  const modalTitle = document.querySelector('.modal-title')!;
+  const modalBody = document.querySelector('.modal-body')!;
+  const modalLink = document.querySelector('.modal-footer>a')!;
 
   const post = state.posts.find(({ id }) => id === value);
 
@@ -13,15 +14,9 @@ function renderOpenedPost(value: string, state: TState) {
 
   const { description, link, title } = post;
 
-  if (modalTitle) {
-    modalTitle.textContent = title;
-  }
-  if (modalBody) {
-    modalBody.textContent = description;
-  }
-  if (!modalLink) {
-    return;
-  }
+  modalTitle.textContent = title;
+  modalBody.textContent = description;
+
   if (link) {
     modalLink.setAttribute('href', link);
     modalLink.classList.remove('invisible');
