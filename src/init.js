@@ -1,13 +1,11 @@
 /* eslint-disable no-param-reassign */
 import * as onChange from 'on-change';
 import i18next from 'i18next';
-import 'bootstrap';
 import { FORM_STATE } from './constants';
 import { render } from './render';
 import { getSubmitHandler } from './submit';
 import { ru } from './dictionaries';
 import { getClickHandler } from './click';
-import './scss/app.scss';
 
 const init = async () => {
   await i18next.init({
