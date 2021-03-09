@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { init } from './init';
+import init from './init';
 
 const app = () => {
   init();
 };
 
-export { app };
+export default app;

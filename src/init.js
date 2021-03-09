@@ -32,4 +32,4 @@ const init = async () => {
   posts.addEventListener('click', getClickHandler(watchedState));
 };
 
-export { init };
+export default init;
