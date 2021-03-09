@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import * as onChange from 'on-change';
+import onChange from 'on-change';
 import i18next from 'i18next';
 import { FORM_STATE } from './constants';
 import { render } from './render';
