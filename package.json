@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "0.0.1",
   "description": "it is a 3rd project of the 'Frontend-developer' course on the Hexlet",
-  "main": "src/index.js",
+  "main": "src/init.js",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "start": "webpack-dev-server -d --config webpack.config.dev.js",
