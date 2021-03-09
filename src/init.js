@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import onChange from 'on-change';
 import i18next from 'i18next';
+import 'bootstrap';
 import { FORM_STATE } from './constants';
 import { render } from './render';
 import { getSubmitHandler } from './submit';
