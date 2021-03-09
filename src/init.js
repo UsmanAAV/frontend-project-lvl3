@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import onChange from 'on-change';
+import onChangeProxy from 'on-change';
 import i18next from 'i18next';
 import 'bootstrap';
 import { FORM_STATE } from './constants';
@@ -25,7 +25,7 @@ const init = async () => {
     readPosts: [],
   };
 
-  const watchedState = onChange(state, render);
+  const watchedState = onChangeProxy(state, render);
 
   const form = document.getElementById('rss-form');
   form.addEventListener('submit', getSubmitHandler(watchedState));
