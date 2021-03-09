@@ -64,6 +64,7 @@ function getSubmitHandler(state) {
 
   return function handler(e) {
     e.preventDefault();
+    console.log('IS MY JAVASCRIPT RUN?');
     const formData = new FormData(e.target);
     const url = formData.get('rss-url-input');
 
