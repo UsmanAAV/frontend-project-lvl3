@@ -1,3 +1,4 @@
+/* eslint-disable */
 /// <reference types="cypress" />
 const INCORRECT_URL = 'htps://ru.hexlet.io/lessons.rss';
 const CORRECT_URL = 'https://ru.hexlet.io/lessons.rss';

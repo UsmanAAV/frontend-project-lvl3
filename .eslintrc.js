@@ -11,7 +11,6 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    'import/prefer-default-export': 0,
   },
   plugins: ['cypress', 'prettier'],
 };

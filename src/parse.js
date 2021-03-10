@@ -26,7 +26,12 @@ const parse = (response) => {
   const title = doc.querySelector('channel title').textContent;
   const description = doc.querySelector('channel description').textContent;
 
-  return { description, id: feedId, posts, title };
+  return {
+    description,
+    id: feedId,
+    posts,
+    title,
+  };
 };
 
-export { parse };
+export default parse;

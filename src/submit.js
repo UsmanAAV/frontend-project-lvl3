@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable */
 import axios from 'axios';
 import * as yup from 'yup';
 import _ from 'lodash';
 import i18next from 'i18next';
-import { parse } from './parse';
-import { getTimeout } from './timeout';
+import parse from './parse';
+import getTimeout from './timeout';
 
 import { FORM_STATE } from './constants';
 
@@ -94,4 +95,4 @@ function getSubmitHandler(state) {
   };
 }
 
-export { getSubmitHandler };
+export default getSubmitHandler;

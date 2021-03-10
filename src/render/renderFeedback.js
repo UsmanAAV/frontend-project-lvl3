@@ -6,4 +6,4 @@ function renderFeedback(value) {
   feedback.textContent = value;
 }
 
-export { renderFeedback };
+export default renderFeedback;

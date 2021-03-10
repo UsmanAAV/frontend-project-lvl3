@@ -39,4 +39,4 @@ function renderFormState(value) {
   }
 }
 
-export { renderFormState };
+export default renderFormState;

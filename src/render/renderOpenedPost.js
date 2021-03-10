@@ -23,4 +23,4 @@ function renderOpenedPost(value, state) {
   }
 }
 
-export { renderOpenedPost };
+export default renderOpenedPost;

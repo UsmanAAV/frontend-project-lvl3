@@ -15,4 +15,4 @@ const getClickHandler = (state) => (event) => {
   state.readPosts.push(id);
 };
 
-export { getClickHandler };
+export default getClickHandler;
