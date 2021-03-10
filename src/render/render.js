@@ -28,7 +28,7 @@ function render(path, value) {
       renderPosts(value);
       break;
     case 'openedPostId':
-      renderOpenedPost(value);
+      renderOpenedPost(value, this);
       break;
     case 'readPosts':
       renderReadPost(value);

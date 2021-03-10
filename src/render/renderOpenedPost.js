@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
-function renderOpenedPost(value) {
+function renderOpenedPost(value, state) {
   const modalTitle = document.querySelector('.modal-title');
   const modalBody = document.querySelector('.modal-body');
   const modalLink = document.querySelector('.modal-footer>a');
 
-  const post = _.find(this.posts, { id: value });
+  const post = _.find(state.posts, { id: value });
 
   if (!post) {
     return;
