@@ -1,3 +1,4 @@
+/* eslint-disable */
 /// <reference types="cypress" />
 const INCORRECT_URL = 'htps://ru.hexlet.io/lessons.rss';
 const CORRECT_URL = 'https://ru.hexlet.io/lessons.rss';
@@ -23,14 +24,20 @@ context('add rss form', () => {
     cy.get('[data-test="input"]').type(INCORRECT_URL);
     cy.get('[data-test="submit-button"]').click();
     cy.get('[data-test="feedback"]').should('have.class', 'text-danger');
-    cy.get('[data-test="feedback"]').contains('Пожалуйста, введите валидный url-адрес');
+    cy.get('[data-test="feedback"]').contains('Ссылка должна быть валидным URL');
   });
 
   it('show error if add duplicate feed', () => {
+    cy.intercept('https://hexlet-allorigins.herokuapp.com/get').as('rss');
+
     cy.get('[data-test="input"]').type(CORRECT_URL);
     cy.get('[data-test="submit-button"]').click();
+
+    cy.wait('@rss');
+
     cy.get('[data-test="input"]').type(CORRECT_URL);
     cy.get('[data-test="submit-button"]').click();
+
     cy.get('[data-test="feedback"').should('have.class', 'text-danger');
     cy.get('[data-test="feedback"').contains('RSS уже существует');
   });

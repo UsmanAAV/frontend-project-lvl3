@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from 'lodash';
 import i18next from 'i18next';
 
@@ -18,4 +19,4 @@ function renderFeeds(value) {
   `;
 }
 
-export { renderFeeds };
+export default renderFeeds;

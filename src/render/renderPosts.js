@@ -1,3 +1,4 @@
+/* eslint-disable */
 import _ from 'lodash';
 import i18next from 'i18next';
 
@@ -28,4 +29,4 @@ function renderPosts(value) {
   `;
 }
 
-export { renderPosts };
+export default renderPosts;

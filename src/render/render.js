@@ -1,11 +1,12 @@
+/* eslint-disable */
 import i18next from 'i18next';
 import _ from 'lodash';
-import { renderFormState } from './renderFormState';
-import { renderFeeds } from './renderFeeds';
-import { renderPosts } from './renderPosts';
-import { renderOpenedPost } from './renderOpenedPost';
-import { renderReadPost } from './renderReadPost';
-import { renderFeedback } from './renderFeedback';
+import renderFormState from './renderFormState';
+import renderFeeds from './renderFeeds';
+import renderPosts from './renderPosts';
+import renderOpenedPost from './renderOpenedPost';
+import renderReadPost from './renderReadPost';
+import renderFeedback from './renderFeedback';
 
 function render(path, value) {
   switch (path) {
@@ -28,7 +29,7 @@ function render(path, value) {
       renderPosts(value);
       break;
     case 'openedPostId':
-      renderOpenedPost(value);
+      renderOpenedPost(value, this);
       break;
     case 'readPosts':
       renderReadPost(value);
@@ -38,4 +39,4 @@ function render(path, value) {
   }
 }
 
-export { render };
+export default render;

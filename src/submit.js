@@ -1,14 +1,15 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable */
 import axios from 'axios';
 import * as yup from 'yup';
 import _ from 'lodash';
 import i18next from 'i18next';
-import { parse } from './parse';
-import { getTimeout } from './timeout';
+import parse from './parse';
+import getTimeout from './timeout';
 
 import { FORM_STATE } from './constants';
 
-const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get?url=';
+const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get';
 
 const validate = (data) => {
   yup.setLocale({
@@ -34,7 +35,7 @@ const validateForm = (state, url) =>
 
 const fetchData = (url) =>
   axios
-    .get(`${allOrigins}${encodeURIComponent(url)}`)
+    .get(allOrigins, { params: { url, disableCache: true } })
     .then((data) => {
       return data;
     })
@@ -94,4 +95,4 @@ function getSubmitHandler(state) {
   };
 }
 
-export { getSubmitHandler };
+export default getSubmitHandler;

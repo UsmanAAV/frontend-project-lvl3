@@ -7,7 +7,7 @@ const BUNDLE_NAME = 'bundle.js';
 const PATHS = {
   app: path.join(__dirname, './src/index.js'),
   dist: path.join(__dirname, 'dist'),
-  template: path.resolve(__dirname, 'static/template.html'),
+  template: path.resolve(__dirname, './index.html'),
 };
 
 module.exports = {

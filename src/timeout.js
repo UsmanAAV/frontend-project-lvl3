@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { INTERVAL } from './constants';
 
 const getTimeout = (callback) => {
@@ -22,4 +23,4 @@ const getTimeout = (callback) => {
   return { start, stop };
 };
 
-export { getTimeout };
+export default getTimeout;

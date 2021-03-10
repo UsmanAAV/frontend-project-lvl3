@@ -8,4 +8,4 @@ function renderReadPost(value) {
   }
 }
 
-export { renderReadPost };
+export default renderReadPost;
