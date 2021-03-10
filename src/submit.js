@@ -8,7 +8,7 @@ import { getTimeout } from './timeout';
 
 import { FORM_STATE } from './constants';
 
-const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get?url=';
+const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get';
 
 const validate = (data) => {
   yup.setLocale({
