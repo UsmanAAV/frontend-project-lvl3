@@ -34,7 +34,7 @@ const validateForm = (state, url) =>
 
 const fetchData = (url) =>
   axios
-    .get(`${allOrigins}${encodeURIComponent(url)}`)
+    .get(allOrigins, { params: { url, disableCache: true } })
     .then((data) => {
       return data;
     })
