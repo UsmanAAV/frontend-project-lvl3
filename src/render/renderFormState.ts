@@ -25,7 +25,7 @@ function renderFormState(value: EFormState): void {
       feedback.classList.remove('text-success');
       break;
     case EFormState.SUBMITTING:
-      input.setAttribute('readonly', "true");
+      input.setAttribute('readonly', 'true');
       button.disabled = true;
       break;
     case EFormState.SUCCESS:

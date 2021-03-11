@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { TState } from './../types';
 
-function renderOpenedPost(value: string, state: TState) {
+function renderOpenedPost(value: string, state: TState): void {
   const modalTitle = document.querySelector('.modal-title')!;
   const modalBody = document.querySelector('.modal-body')!;
   const modalLink = document.querySelector('.modal-footer>a')!;

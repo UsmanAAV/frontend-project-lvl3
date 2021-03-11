@@ -8,7 +8,7 @@ import ru from './dictionaries';
 import getClickHandler from './click';
 import { EFormState, TState } from './types';
 
-const init = async () => {
+const init = async (): Promise<void> => {
   await i18next.init({
     lng: 'ru',
     resources: { ru },
