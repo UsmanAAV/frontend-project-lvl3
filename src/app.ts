@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import init from './init';
 
-const app = async () => {
+const app = async (): Promise<void> => {
   await init();
 };
 

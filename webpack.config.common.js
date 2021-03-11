@@ -1,29 +1,33 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const AutoprefixerPlugin = require('autoprefixer');
 
 const BUNDLE_NAME = 'bundle.js';
 const PATHS = {
-  app: path.join(__dirname, './src/index.js'),
+  app: path.join(__dirname, './src/index.ts'),
   dist: path.join(__dirname, 'dist'),
   template: path.resolve(__dirname, './index.html'),
 };
 
 module.exports = {
-  entry: ['@babel/polyfill', PATHS.app],
+  entry: PATHS.app,
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
 
   output: {
     path: PATHS.dist,
     filename: BUNDLE_NAME,
   },
 
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
       {
         test: /\.(scss)$/,
         use: [
@@ -36,29 +40,10 @@ module.exports = {
             loader: 'css-loader',
           },
           {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins() {
-                  return [AutoprefixerPlugin];
-                },
-              },
-            },
-          },
-          {
             // Loads a SASS/SCSS file and compiles it to CSS
             loader: 'sass-loader',
           },
         ],
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: { presets: ['@babel/preset-env'] },
-        },
       },
     ],
   },

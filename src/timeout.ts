@@ -1,8 +1,10 @@
 /* eslint-disable */
 import { INTERVAL } from './constants';
+import { TTimeoutResult } from './types';
 
-const getTimeout = (callback) => {
-  let timeout = null;
+// eslint-disable-next-line @typescript-eslint/ban-types
+const getTimeout = (callback: Function): TTimeoutResult => {
+  let timeout: NodeJS.Timeout | null = null;
 
   const stop = () => {
     if (timeout) {

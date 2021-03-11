@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import i18next from 'i18next';
-import { FORM, FORM_STATE } from '../constants';
+import { FORM } from '../constants';
+import { EFormState } from '../types';
 
-function renderFormState(value) {
-  const input = document.querySelector(`#${FORM.inputId}`);
-  const feedback = document.querySelector(`#${FORM.feedback}`);
-  const button = document.querySelector('button[type="submit"]');
+function renderFormState(value: EFormState): void {
+  const input = document.querySelector<HTMLInputElement>(`#${FORM.inputId}`)!;
+  const feedback = document.querySelector<HTMLDivElement>(`#${FORM.feedback}`)!;
+  const button = document.querySelector<HTMLButtonElement>('button[type="submit"]')!;
 
   switch (value) {
-    case FORM_STATE.initial:
+    case EFormState.INITIAL:
       input.classList.remove('is-invalid');
       input.value = '';
       input.removeAttribute('readonly');
@@ -15,18 +17,18 @@ function renderFormState(value) {
       feedback.classList.remove('text-danger');
       feedback.classList.remove('text-success');
       break;
-    case FORM_STATE.invalid:
+    case EFormState.INVALID:
       input.classList.add('is-invalid');
       input.removeAttribute('readonly');
       button.disabled = false;
       feedback.classList.add('text-danger');
       feedback.classList.remove('text-success');
       break;
-    case FORM_STATE.submitting:
-      input.setAttribute('readonly', true);
+    case EFormState.SUBMITTING:
+      input.setAttribute('readonly', 'true');
       button.disabled = true;
       break;
-    case FORM_STATE.success:
+    case EFormState.SUCCESS:
       input.classList.remove('is-invalid');
       input.value = '';
       input.removeAttribute('readonly');

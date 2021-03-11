@@ -2,16 +2,20 @@
 /* eslint-disable */
 import axios from 'axios';
 import * as yup from 'yup';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import i18next from 'i18next';
 import parse from './parse';
 import getTimeout from './timeout';
 
-import { FORM_STATE } from './constants';
+import { EFormState, TState } from './types';
 
 const allOrigins = 'https://hexlet-allorigins.herokuapp.com/get';
 
-const validate = (data) => {
+type TSchema = {
+  input: string;
+};
+
+const validate = (data: TSchema) => {
   yup.setLocale({
     string: {
       required: i18next.t('input.required'),
@@ -20,20 +24,20 @@ const validate = (data) => {
   });
 
   const schema = yup.object().shape({
-    input: yup.string().required().url(),
+    input: yup.string().defined().url(),
   });
 
   return schema.validate(data);
 };
 
-const validateForm = (state, url) =>
-  validate({ input: url }).then(() => {
+const validateForm = (state: TState, url: string) =>
+  validate(<TSchema>{ input: url }).then(() => {
     if (_.find(state.feeds, { url })) {
       throw new Error(i18next.t('rssAlreadyExists'));
     }
   });
 
-const fetchData = (url) =>
+const fetchData = (url: string) =>
   axios
     .get(allOrigins, { params: { url, disableCache: true } })
     .then((data) => {
@@ -43,15 +47,13 @@ const fetchData = (url) =>
       return Promise.reject(new Error(i18next.t('networkError')));
     });
 
-const updateFeeds = (state) => () => {
+const updateFeeds = (state: TState) => () => {
   _.forEach(state.feeds, ({ id, url }) => {
     fetchData(url).then((response) => {
-      const result = parse(response);
-      const { error, posts: newPosts } = result;
-      if (error) {
-        return;
-      }
-      const [feedPosts, otherPosts] = _.partition(state.posts, { feedId: id });
+      const result = parse(response, url);
+      const { posts: newPosts } = result;
+      const res = _.partition(state.posts, { feedId: id });
+      const [feedPosts, otherPosts] = res;
       const arePostsChanged = _.isEqual(feedPosts, newPosts);
       if (arePostsChanged) {
         state.posts = [...otherPosts, ...newPosts];
@@ -60,36 +62,37 @@ const updateFeeds = (state) => () => {
   });
 };
 
-function getSubmitHandler(state) {
+function getSubmitHandler(state: TState): (e: Event) => void {
   const { start: onSubmitSuccess, stop: onBeforeSubmit } = getTimeout(updateFeeds(state));
 
-  return function handler(e) {
+  return function handler(e: Event) {
+    if (!(e.target instanceof HTMLFormElement)) {
+      return;
+    }
     e.preventDefault();
     const formData = new FormData(e.target);
-    const url = formData.get('rss-url-input');
+    const url = formData.get('rss-url-input') as string;
 
     validateForm(state, url)
       .then(() => {
-        state.form.state = FORM_STATE.submitting;
+        state.form.state = EFormState.SUBMITTING;
         state.form.feedback = '';
         onBeforeSubmit();
         return fetchData(url);
       })
       .then((response) => {
-        const result = parse(response);
-        const { description, error, id, posts, title } = result;
-        if (error) {
-          throw new Error(error);
-        }
+        const result = parse(response, url);
+        const { feed, posts } = result;
+        const { description, id, title } = feed;
         state.feeds.push({ description, id, title, url });
         state.posts.push(...posts);
-        state.form.state = FORM_STATE.success;
+        state.form.state = EFormState.SUCCESS;
         state.form.feedback = i18next.t('rssAddedSuccessfully');
         onSubmitSuccess();
         return result;
       })
       .catch((error) => {
-        state.form.state = FORM_STATE.invalid;
+        state.form.state = EFormState.INVALID;
         state.form.feedback = error.message;
       });
   };

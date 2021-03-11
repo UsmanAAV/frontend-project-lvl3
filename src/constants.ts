@@ -4,11 +4,4 @@ export const FORM = {
   feedback: 'feedback',
 };
 
-export const FORM_STATE = {
-  submitting: 'submitting',
-  initial: 'initial',
-  invalid: 'invalid',
-  success: 'success',
-};
-
 export const INTERVAL = 5000;

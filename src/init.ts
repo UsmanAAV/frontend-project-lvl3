@@ -1,22 +1,22 @@
 /* eslint-disable no-param-reassign */
-import onChangeProxy from 'on-change';
+import * as onChange from 'on-change';
 import i18next from 'i18next';
 import 'bootstrap';
-import { FORM_STATE } from './constants';
 import render from './render';
 import getSubmitHandler from './submit';
 import ru from './dictionaries';
 import getClickHandler from './click';
+import { EFormState, TState } from './types';
 
-const init = async () => {
+const init = async (): Promise<void> => {
   await i18next.init({
     lng: 'ru',
     resources: { ru },
   });
 
-  const state = {
+  const state: TState = {
     form: {
-      state: FORM_STATE.initial,
+      state: EFormState.INITIAL,
       feedback: '',
     },
     feeds: [],
@@ -25,12 +25,16 @@ const init = async () => {
     readPosts: [],
   };
 
-  const watchedState = onChangeProxy(state, render);
+  const watchedState = onChange(state, render);
 
   const form = document.getElementById('rss-form');
-  form.addEventListener('submit', getSubmitHandler(watchedState));
+  if (form) {
+    form.addEventListener('submit', getSubmitHandler(watchedState));
+  }
   const posts = document.querySelector('.posts');
-  posts.addEventListener('click', getClickHandler(watchedState));
+  if (posts) {
+    posts.addEventListener('click', getClickHandler(watchedState));
+  }
 };
 
 export default init;
